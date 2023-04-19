@@ -22,6 +22,5 @@ jobs:
           name: package
           
       - name: Job
-        needs: check
         run: |
           echo "version=$(cat version.txt)"
