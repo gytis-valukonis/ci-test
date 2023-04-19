@@ -2,12 +2,25 @@ on:
   pull_request: 
     types:
       - closed
+    branches:
+      - main
+      - develop
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: main.yml
+          workflow_conclusion: success
+          pr: ${{github.event.pull_request.number}}
+          name: package
+          
       - name: Job
         run: |
-          echo "deployed"
+          echo "version=$(cat version.txt)"
