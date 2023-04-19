@@ -22,5 +22,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: version.txt
+      
       - name: Job
         run: echo 'Packaged project'
